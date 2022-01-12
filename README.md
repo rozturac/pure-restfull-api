@@ -77,7 +77,7 @@ With this project, it was tried to develop a restful service using mediator patt
 
 `GET /configs?key=Hello`
 
-    curl -i -H 'Accept: application/json' http://localhost:8080/configs?key=Hello
+    curl -i -H 'Accept: application/json' https://pure-restful-api.herokuapp.com/api/v1/configs?key=Hello
 
 ### Response
 
