@@ -22,10 +22,13 @@ import (
 func Init(config *configs.Config) {
 	logger := log.Default()
 	inMemoryDB := common.NewInMemoryDB()
+	mongoDB := common.NewMongoHelper(config.MongoDB.URI, config.MongoDB.Database, 15)
 	configRepository := persistence.NewConfigRepository(inMemoryDB)
+	recordRepository := persistence.NewRecordRepository(mongoDB.GetCollection("records"))
 
-	mediator := ResolveMediator(logger, configRepository, nil)
+	mediator := ResolveMediator(logger, configRepository, recordRepository)
 	configController := controllers.NewConfigController(mediator, config.Globalization)
+	recordController := controllers.NewRecordController(mediator, config.Globalization)
 
 	mux := http.NewServeMux()
 	healthCheckHandler := func() http.HandlerFunc {
@@ -35,6 +38,7 @@ func Init(config *configs.Config) {
 	}
 
 	mux.Handle("/api/v1/health-check", healthCheckHandler())
+	mux.Handle("/api/v1/records", middleware.ErrorMiddleware(recordController.ServeHTTP()))
 	mux.Handle("/api/v1/configs", middleware.ErrorMiddleware(configController.ServeHTTP()))
 
 	srv := &http.Server{
@@ -51,7 +55,7 @@ func Init(config *configs.Config) {
 }
 
 func ResolveMediator(logger *log.Logger,
-	configRepository repository.ConfigRepository, recordRepository repository.RecordRepository) mediator.Mediator {
+	configRepository repository.ConfigRepository, recordRepository repository.RecordQueryRepository) mediator.Mediator {
 	m := mediator.Create()
 	m.WithBehavior(behavior.NewPerformanceBehavior(logger).Execute)
 
@@ -62,23 +66,25 @@ func ResolveMediator(logger *log.Logger,
 		create_config.NewCreateConfigCommandHandler(configRepository).Handle,
 	)
 	if err != nil {
+		logger.Fatal(err)
 		panic(err)
 	}
 
-	cmd := &get_config.GetConfigQuery{}
 	err = m.RegisterCommand(
-		cmd,
+		&get_config.GetConfigQuery{},
 		get_config.NewGetConfigQueryHandler(configRepository).Handle,
 	)
 	if err != nil {
+		logger.Fatal(err)
 		panic(err)
 	}
 
 	err = m.RegisterCommand(
-		&get_records.GetRecordQueryHandler{},
+		&get_records.GetRecordsByTimeAndCountRangeQuery{},
 		get_records.NewGetRecordQueryHandler(recordRepository).Handle,
 	)
 	if err != nil {
+		logger.Fatal(err)
 		panic(err)
 	}
 

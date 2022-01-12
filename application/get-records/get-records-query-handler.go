@@ -2,20 +2,20 @@ package get_records
 
 import (
 	"context"
+	"fmt"
 	"github.com/rozturac/cerror"
 	"github.com/rozturac/go-mediator"
 	"pure-restfull-api/application/common"
-	"pure-restfull-api/domain/entity"
 	domain_query "pure-restfull-api/domain/query"
 	"pure-restfull-api/domain/repository"
 	"time"
 )
 
 type GetRecordQueryHandler struct {
-	repository repository.RecordRepository
+	repository repository.RecordQueryRepository
 }
 
-func NewGetRecordQueryHandler(repository repository.RecordRepository) *GetRecordQueryHandler {
+func NewGetRecordQueryHandler(repository repository.RecordQueryRepository) *GetRecordQueryHandler {
 	return &GetRecordQueryHandler{
 		repository: repository,
 	}
@@ -28,7 +28,7 @@ func (g *GetRecordQueryHandler) Handle(ctx context.Context, command mediator.Com
 	}
 
 	var (
-		records   []*entity.Record
+		records   interface{}
 		startDate time.Time
 		endDate   time.Time
 		location  *time.Location
@@ -37,7 +37,7 @@ func (g *GetRecordQueryHandler) Handle(ctx context.Context, command mediator.Com
 
 	locationName := ctx.Value(common.Location).(string)
 	if location, err = time.LoadLocation(locationName); err != nil {
-		return nil, cerror.New(cerror.ApplicationError, "Can not fetch the location for 'Europe/Istanbul'").With(err)
+		return nil, cerror.New(cerror.ApplicationError, fmt.Sprintf("Can not fetch the location for '%s'", locationName)).With(err)
 	}
 
 	if startDate, err = time.ParseInLocation("2006-01-02", query.StartDate, location); err != nil {
@@ -56,7 +56,7 @@ func (g *GetRecordQueryHandler) Handle(ctx context.Context, command mediator.Com
 		return nil, common.InvalidValueError("MaxCount value must be greater than MinCount value")
 	}
 
-	records, err = g.repository.GetRecordsByFilter(&domain_query.GetRecordsByTimeAndCountRangeQuery{
+	records, err = g.repository.GetRecordsByFilter(ctx, &domain_query.GetRecordsByTimeAndCountRangeQuery{
 		StartDate: startDate.UTC(),
 		EndDate:   endDate.UTC(),
 		MaxCount:  query.MaxCount,

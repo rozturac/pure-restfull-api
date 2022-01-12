@@ -1,8 +1,8 @@
 package get_records
 
 type GetRecordsByTimeAndCountRangeQuery struct {
-	StartDate string `json:"start_date"`
-	EndDate   string `json:"end_date"`
-	MinCount  int    `json:"min_count"`
-	MaxCount  int    `json:"max_count"`
+	StartDate string `json:"startDate"`
+	EndDate   string `json:"endDate"`
+	MinCount  int    `json:"minCount"`
+	MaxCount  int    `json:"maxCount"`
 }

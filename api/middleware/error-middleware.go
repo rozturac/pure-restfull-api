@@ -18,9 +18,9 @@ func ErrorMiddleware(next http.HandlerFunc) http.HandlerFunc {
 						httpStatusCode = customError.HttpStatusCode()
 					}
 				}
-			}
 
-			controllers.JSON(writer, httpStatusCode, response)
+				controllers.JSON(writer, httpStatusCode, response)
+			}
 		}()
 
 		next(writer, request)
@@ -29,12 +29,12 @@ func ErrorMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 func mapper(message string) interface{} {
 	type ConsistentErrorMessage struct {
-		Code int
-		Msg  string
+		Code    int    `json:"code"`
+		Message string `json:"msg"`
 	}
 
 	return &ConsistentErrorMessage{
-		Code: -1,
-		Msg:  message,
+		Code:    -1,
+		Message: message,
 	}
 }

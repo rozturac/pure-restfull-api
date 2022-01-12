@@ -30,7 +30,7 @@ func (c *ConfigController) ServeHTTP() http.HandlerFunc {
 		case http.MethodGet:
 			c.getByKey(writer, request)
 		default:
-			NoContent(writer, http.StatusNoContent)
+			NoContent(writer, http.StatusNotFound)
 		}
 	}
 }
