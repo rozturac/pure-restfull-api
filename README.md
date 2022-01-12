@@ -22,12 +22,12 @@ With this project, it was tried to develop a restful service using mediator patt
 ### Response
 
 ```
-    HTTP/1.1 200 OK
-    Date: Wed, 12 Jan 2022 17:12:49 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 204
+HTTP/1.1 200 OK
+Date: Wed, 12 Jan 2022 17:12:49 GMT
+Status: 200 OK
+Connection: close
+Content-Type: application/json
+Content-Length: 204
 ```
 
 ```json
@@ -63,12 +63,12 @@ With this project, it was tried to develop a restful service using mediator patt
 ```
 ### Response
 ```
-    HTTP/1.1 201 Created
-    Date: Wed, 12 Jan 2022 17:12:49 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 0
+HTTP/1.1 201 Created
+Date: Wed, 12 Jan 2022 17:12:49 GMT
+Status: 201 Created
+Connection: close
+Content-Type: application/json
+Content-Length: 0
 ```
 
 ## Get Config
@@ -81,12 +81,12 @@ With this project, it was tried to develop a restful service using mediator patt
 
 ### Response
 
-    HTTP/1.1 200 OK
-    Date: Wed, 12 Jan 2022 17:13:08 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 32
+HTTP/1.1 200 OK
+Date: Wed, 12 Jan 2022 17:13:08 GMT
+Status: 200 OK
+Connection: close
+Content-Type: application/json
+Content-Length: 32
 
 ```json
 {
