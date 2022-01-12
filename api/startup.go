@@ -5,6 +5,7 @@ import (
 	"github.com/rozturac/go-mediator"
 	"log"
 	"net/http"
+	"os"
 	"pure-restfull-api/api/configs"
 	"pure-restfull-api/api/controllers"
 	"pure-restfull-api/api/middleware"
@@ -44,7 +45,7 @@ func Init(config *configs.Config) {
 	srv := &http.Server{
 		ReadTimeout:  time.Duration(config.Host.ReadTimeout) * time.Second,
 		WriteTimeout: time.Duration(config.Host.WriteTimeout) * time.Second,
-		Addr:         fmt.Sprintf(":%d", config.Host.Port),
+		Addr:         fmt.Sprintf(":%s", GetPort(config)),
 		Handler:      mux,
 		ErrorLog:     logger,
 	}
@@ -89,4 +90,12 @@ func ResolveMediator(logger *log.Logger,
 	}
 
 	return m
+}
+
+func GetPort(config *configs.Config) string {
+	if envPort := os.Getenv("PORT"); len(envPort) != 0 {
+		return envPort
+	}
+
+	return config.Host.Port
 }

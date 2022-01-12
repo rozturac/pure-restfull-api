@@ -18,7 +18,7 @@ type MongoDB struct {
 }
 
 type Host struct {
-	Port         int
+	Port         string
 	ReadTimeout  int
 	WriteTimeout int
 }
