@@ -29,6 +29,8 @@ func (c *ConfigController) ServeHTTP() http.HandlerFunc {
 			c.createConfig(writer, request)
 		case http.MethodGet:
 			c.getByKey(writer, request)
+		default:
+			NoContent(writer, http.StatusNoContent)
 		}
 	}
 }
