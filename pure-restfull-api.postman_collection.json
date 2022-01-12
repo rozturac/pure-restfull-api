@@ -15,17 +15,16 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  \"MongoDB\": {\n    \"URI\": \"mongodb+srv://challengeUser:WUMglwNBaydH8Yvu@challenge-xzwqd.mongodb.net/getir-case-study?retryWrites=true\",\n    \"Database\": \"getir-case-study\",\n    \"Timeout\": 15\n  },"
+					"raw": ""
 				},
 				"url": {
-					"raw": "https://pure-restful-api.herokuapp.com:8080/api/v1/health-check",
+					"raw": "https://pure-restful-api.herokuapp.com/api/v1/health-check",
 					"protocol": "https",
 					"host": [
 						"pure-restful-api",
 						"herokuapp",
 						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -99,12 +98,23 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\":\"2016-01-26\",\n    \"endDate\":\"2018-02-02\",\n    \"minCount\":2700,\n    \"maxCount\":3000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8080/api/v1/records",
+					"raw": "https://pure-restful-api.herokuapp.com/api/v1/records",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"pure-restful-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
