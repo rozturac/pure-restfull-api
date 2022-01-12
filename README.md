@@ -77,7 +77,7 @@ Content-Length: 0
 
 `GET /configs?key=Hello`
 
-    curl -i -H 'Accept: application/json' http://localhost:8080/configs?key=Hello
+    curl -i -H 'Accept: application/json' https://pure-restful-api.herokuapp.com/api/v1/configs?key=Hello
 
 ### Response
 ```
