@@ -1,4 +1,4 @@
-# REST API example application
+# REST API With Mediator
 
 # REST API
 
