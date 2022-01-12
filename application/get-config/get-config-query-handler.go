@@ -20,11 +20,11 @@ func NewGetConfigQueryHandler(repository repository.ConfigRepository) *GetConfig
 func (g *GetConfigQueryHandler) Handle(ctx context.Context, command mediator.Command) (interface{}, error) {
 	query, ok := command.(*GetConfigQuery)
 	if !ok {
-		return nil, common.UnExpectedCommand(query)
+		return nil, common.UnExpectedCommand("mediator.Command", query)
 	}
 
 	if len(query.Key) == 0 {
-		common.NullOrEmptyReferenceError("key")
+		return nil, common.NullOrEmptyReferenceError("key")
 	}
 
 	config, err := g.repository.GetByKey(query.Key)

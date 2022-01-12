@@ -17,7 +17,9 @@ type MongoDB struct {
 }
 
 type Host struct {
-	Port int
+	Port         int
+	ReadTimeout  int
+	WriteTimeout int
 }
 
 type Globalization struct {

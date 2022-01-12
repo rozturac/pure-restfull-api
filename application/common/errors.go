@@ -3,14 +3,20 @@ package common
 import (
 	"fmt"
 	"github.com/rozturac/cerror"
+	"net/http"
 	"reflect"
 )
 
-func UnExpectedCommand(expectedCommand interface{}) cerror.Error {
+func UnExpectedCommand(from string, expectedCommand interface{}) cerror.Error {
 	return cerror.New(
 		cerror.ApplicationError,
-		fmt.Sprintf("Can not cast command to '%s' model", reflect.TypeOf(expectedCommand).Name()),
+		fmt.Sprintf("%s can not cast to '%s' model", from, reflect.TypeOf(expectedCommand).Name()),
 	)
+}
+
+// NullOrEmptyArgumentError Create an instance of Null or Empty Argument Error with object name
+func NullOrEmptyArgumentError(fieldName string) cerror.Error {
+	return cerror.NewWithHttpStatusCode(cerror.ApplicationError, fmt.Sprintf("%s argument is null or empty!", fieldName), http.StatusBadRequest)
 }
 
 // NullOrEmptyReferenceError Create an instance of Null or Empty Reference Error with object name

@@ -24,15 +24,15 @@ func NewGetRecordQueryHandler(repository repository.RecordRepository) *GetRecord
 func (g *GetRecordQueryHandler) Handle(ctx context.Context, command mediator.Command) (interface{}, error) {
 	query, ok := command.(*GetRecordsByTimeAndCountRangeQuery)
 	if !ok {
-		return nil, common.UnExpectedCommand(query)
+		return nil, common.UnExpectedCommand("mediator.Command", query)
 	}
 
 	var (
-		records      []*entity.Record
-		startDate    time.Time
-		endDate      time.Time
-		location     *time.Location
-		err          error
+		records   []*entity.Record
+		startDate time.Time
+		endDate   time.Time
+		location  *time.Location
+		err       error
 	)
 
 	locationName := ctx.Value(common.Location).(string)
