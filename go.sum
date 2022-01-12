@@ -1,0 +1,5 @@
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/rozturac/cerror v1.2.0 h1:eY5VUw7Fr/misySm4wItWTOic2vh+yGQjZHkQfiH+Jk=
+github.com/rozturac/cerror v1.2.0/go.mod h1:r6y5z5ut7vIarYtAHGKGPiqpxIP8dRF/exCv5jP6U6s=
+github.com/rozturac/go-mediator v0.0.0-20211224074106-aab1a2765d23 h1:broq5QkspJdvUHwX3BJTMPFO9jRmBNfc3tCjN2h74qI=
+github.com/rozturac/go-mediator v0.0.0-20211224074106-aab1a2765d23/go.mod h1:tlJBEKEop2I0nPEh+VRgYbTYJeg0I8ZvzZgr0GAkRwY=
