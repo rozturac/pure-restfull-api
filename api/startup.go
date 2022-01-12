@@ -22,7 +22,7 @@ import (
 func Init(config *configs.Config) {
 	logger := log.Default()
 	inMemoryDB := common.NewInMemoryDB()
-	mongoDB := common.NewMongoHelper(config.MongoDB.URI, config.MongoDB.Database, 15)
+	mongoDB := common.NewMongoHelper(config.MongoDB.URI, config.MongoDB.Database, config.MongoDB.Timeout)
 	configRepository := persistence.NewConfigRepository(inMemoryDB)
 	recordRepository := persistence.NewRecordRepository(mongoDB.GetCollection("records"))
 

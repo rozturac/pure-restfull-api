@@ -14,6 +14,7 @@ type Config struct {
 type MongoDB struct {
 	URI      string
 	Database string
+	Timeout  int
 }
 
 type Host struct {
