@@ -48,6 +48,10 @@ func (g *GetRecordQueryHandler) Handle(ctx context.Context, command mediator.Com
 		return nil, cerror.InvalidCastError(query.EndDate, endDate).With(err)
 	}
 
+	if startDate.After(endDate) || startDate.Equal(endDate) {
+		return nil, common.InvalidValueError("EndDate must be greater than StartDate")
+	}
+
 	if query.MinCount < 0 {
 		return nil, common.InvalidValueError("MinCount must be greater than or equal 0")
 	}

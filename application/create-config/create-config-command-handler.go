@@ -25,11 +25,11 @@ func (c *CreateConfigCommandHandler) Handle(ctx context.Context, command mediato
 	}
 
 	if len(cmd.Key) == 0 {
-		common.NullOrEmptyReferenceError("key")
+		return nil, common.NullOrEmptyReferenceError("Key")
 	}
 
 	if len(cmd.Value) == 0 {
-		common.NullOrEmptyReferenceError("value")
+		return nil, common.NullOrEmptyReferenceError("Value")
 	}
 
 	config := entity.CreateConfig(cmd.Key, cmd.Value)
