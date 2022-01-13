@@ -21,10 +21,10 @@ func NullOrEmptyArgumentError(fieldName string) cerror.Error {
 
 // NullOrEmptyReferenceError Create an instance of Null or Empty Reference Error with object name
 func NullOrEmptyReferenceError(fieldName string) cerror.Error {
-	return cerror.New(cerror.ApplicationError, fmt.Sprintf("%s is null or empty!", fieldName))
+	return cerror.NewWithHttpStatusCode(cerror.ApplicationError, fmt.Sprintf("%s is null or empty!", fieldName), http.StatusBadRequest)
 }
 
 // InvalidValueError Create an instance of Invalid Value Error with message
 func InvalidValueError(message string) cerror.Error {
-	return cerror.New(cerror.ApplicationError, message)
+	return cerror.NewWithHttpStatusCode(cerror.ApplicationError, message, http.StatusBadRequest)
 }

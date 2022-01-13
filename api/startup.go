@@ -20,6 +20,15 @@ import (
 	"time"
 )
 
+const (
+	reset  = "\033[0m"
+	green  = "\033[32m"
+	banner = `
+-> Service Started 
+-> PORT: %s		
+`
+)
+
 func Init(config *configs.Config) {
 	logger := log.Default()
 	inMemoryDB := common.NewInMemoryDB()
@@ -50,6 +59,7 @@ func Init(config *configs.Config) {
 		ErrorLog:     logger,
 	}
 
+	PrintServiceInform(config)
 	if err := srv.ListenAndServe(); err != nil {
 		logger.Fatal(err)
 	}
@@ -98,4 +108,9 @@ func GetPort(config *configs.Config) string {
 	}
 
 	return config.Host.Port
+}
+
+func PrintServiceInform(config *configs.Config) {
+	fmt.Println(green, fmt.Sprintf(banner, GetPort(config)))
+	fmt.Println(reset)
 }
